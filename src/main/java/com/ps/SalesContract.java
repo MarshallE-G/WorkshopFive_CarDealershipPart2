@@ -9,7 +9,7 @@ public class SalesContract extends Contract {
     private int processingFee;
 //    (Whether they want to finance) Finance Option: Yes/No
     private boolean wantToFinance;
-//    Monthly Payment (if financed) based on: <---- Get From Super class
+//    Monthly Payment (if financed) based on:
     //    All loans at 4.25% for 48 months if the price is $10,000 or more
     //    Otherwise they are 5.25% for 24 months
 
@@ -27,7 +27,7 @@ public class SalesContract extends Contract {
         super(date, customerName, customerEmail, vehicleSold);
         this.salesTaxAmount = 0.05 * vehicleSold.getPrice(); // 5% of the vehicle's price amount
         this.recordingFee = 100; // Fixed
-        this.processingFee = processingFee; // May have to do an if-statement for this or something
+        this.processingFee = (vehicleSold.getPrice() < 10_000 ? 295: 495); // ternary operators
         this.wantToFinance = wantToFinance;
     }
 
@@ -36,7 +36,8 @@ public class SalesContract extends Contract {
         // Calc values
     @Override
     public double getTotalPrice() {
-
+        this.totalPrice = getVehicleSold().getPrice() + this.salesTaxAmount + this.recordingFee + this.processingFee;
+        return this.totalPrice;
     }
 
     // Override getMonthlyPayment()
@@ -44,7 +45,18 @@ public class SalesContract extends Contract {
         // return 0 if NO loan option chosen
     @Override
     public double getMonthlyPayment() {
+        double totalPriceOfVehicleSold = this.getTotalPrice();
 
+        if (this.wantToFinance && (totalPriceOfVehicleSold > 9_999)) { // $10,000 or more
+            this.monthlyPayment = totalPriceOfVehicleSold * 0.0425; // 4.25%
+
+        } else if (this.wantToFinance && (totalPriceOfVehicleSold < 10_000)) { // If LESS than $10,000
+            this.monthlyPayment = totalPriceOfVehicleSold * 0.0525; // 5.25%
+
+        } else {
+            this.monthlyPayment = 0;
+        }
+        return this.monthlyPayment;
     }
 
 

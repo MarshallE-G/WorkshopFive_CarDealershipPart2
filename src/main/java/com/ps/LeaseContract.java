@@ -3,7 +3,7 @@ package com.ps;
 public class LeaseContract extends Contract {
 //    Expected Ending Value (50% of the original cost of vehicle, after 3 years) <--- the estimated amount the vehicle is worth at the end of the lease.
 //    Lease Fee (7% of the original cost of vehicle) <--- Initial cost
-//    Monthly Payment based on: <---- Get From Super class
+//    Monthly Payment based on:
     //    All leases are financed at 4.0% for 36 months
 
     // Constructor

@@ -5,8 +5,8 @@ public abstract class Contract {
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold; // May have to change this to be a String or an int later.
-    private double totalPrice;
-    private double monthlyPayment;
+    protected double totalPrice;
+    protected double monthlyPayment;
 
     // Constructor
         // DON'T include total price and monthly payment
