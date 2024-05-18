@@ -57,6 +57,10 @@ public class UserInterface {
                 case 9:
                     processRemoveVehicleRequest();
                     break;
+
+                // Sale
+                // Lease
+
                 case 99:
                     break;
             }
