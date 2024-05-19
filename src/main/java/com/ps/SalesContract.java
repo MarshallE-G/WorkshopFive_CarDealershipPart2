@@ -75,4 +75,16 @@ public class SalesContract extends Contract {
     public void setFinanceOption(boolean financeOption) {
         this.financeOption = financeOption;
     }
+
+    @Override
+    public String toString() {
+        return "SalesContract{" +
+                "salesTaxAmount=" + salesTaxAmount +
+                ", recordingFee=" + recordingFee +
+                ", processingFee=" + processingFee +
+                ", financeOption=" + financeOption +
+                ", totalPrice=" + totalPrice +
+                ", monthlyPayment=" + monthlyPayment +
+                '}';
+    }
 }

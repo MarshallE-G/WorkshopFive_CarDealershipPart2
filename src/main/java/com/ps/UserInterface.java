@@ -6,6 +6,8 @@ to the Dealership as needed. (ex: when the user selects "List all Vehicles", Use
 Dealership method and then display the vehicles it returns.)
  */
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -42,6 +44,8 @@ public class UserInterface {
             System.out.println("7) List ALL vehicles");
             System.out.println("8) Add a vehicle");
             System.out.println("9) Remove a vehicle");
+            System.out.println("10) Sales Contract");
+            System.out.println("11) Lease Contract");
             System.out.println("99) Quit");
 
             System.out.println("\nEnter selection here:");
@@ -75,6 +79,12 @@ public class UserInterface {
                     break;
                 case 9:
                     processRemoveVehicleRequest();
+                    break;
+                case 10:
+                    processSalesContract();
+                    break;
+                case 11:
+                    // processLeaseContract();
                     break;
                 case 99:
                     System.out.println("\nExiting...");
@@ -329,6 +339,76 @@ public class UserInterface {
         }
 
         System.out.println("Vehicle not found.\n");
+    }
+
+    // processSalesContract()
+    public void processSalesContract() {
+        LocalDate date = LocalDate.now();
+        String customerName;
+        String customerEmail;
+
+        int vinInput;
+        Vehicle vehicleSold = null; // place-holder
+
+        String financeOptionStr;
+        boolean financeOption = false; // place-holder
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String formattedDate = date.format(formatter);
+
+        // Consumes extra carriage
+        scanner.nextLine();
+
+        System.out.println("\n\nYou selected the Sales Contract option!\n");
+
+        System.out.println("Please enter your first and last name:");
+        customerName = scanner.nextLine();
+
+        System.out.println("Please enter your email address:");
+        customerEmail = scanner.nextLine();
+
+        System.out.println("Please enter the vin# of the vehicle you would like to purchase:");
+        vinInput = scanner.nextInt();
+
+        int vehicleVin;
+        for (Vehicle vehicle : this.dealership.getAllVehicles()) {
+            vehicleVin = vehicle.getVin(); // vin# of each vehicle in the dealership
+            if (vehicleVin == vinInput) {
+                vehicleSold = vehicle;
+                System.out.printf("You selected: %d | %d | %s | %s | %s | %s | %d | %.2f\n\n",
+                        vehicleSold.getVin(),
+                        vehicleSold.getYear(),
+                        vehicleSold.getMake(),
+                        vehicleSold.getModel(),
+                        vehicleSold.getVehicleType(),
+                        vehicleSold.getColor(),
+                        vehicleSold.getOdometer(),
+                        vehicleSold.getPrice()
+                );
+                break;
+            }
+        }
+
+        // Consumes extra carriage
+        scanner.nextLine();
+
+        System.out.println("Would you like to finance? (YES/NO)");
+        financeOptionStr = scanner.nextLine();
+
+        if (financeOptionStr.equalsIgnoreCase("YES")) {
+            financeOption = true;
+        } else if (financeOptionStr.equalsIgnoreCase("NO")) {
+            financeOption = false;
+        }
+
+        SalesContract salesContract = new SalesContract(formattedDate, customerName, customerEmail, vehicleSold, financeOption);
+        ContractFileManager.saveContract(salesContract);
+    }
+
+
+    // processLeaseContract()
+    public void processLeaseContract() {
+
     }
 
 }
