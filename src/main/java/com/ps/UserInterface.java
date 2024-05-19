@@ -84,7 +84,7 @@ public class UserInterface {
                     processSalesContract();
                     break;
                 case 11:
-                    // processLeaseContract();
+                    processLeaseContract();
                     break;
                 case 99:
                     System.out.println("\nExiting...");
@@ -408,7 +408,51 @@ public class UserInterface {
 
     // processLeaseContract()
     public void processLeaseContract() {
+        LocalDate date = LocalDate.now();
+        String customerName;
+        String customerEmail;
 
+        int vinInput;
+        Vehicle vehicleSold = null; // place-holder
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String formattedDate = date.format(formatter);
+
+        // Consumes extra carriage
+        scanner.nextLine();
+
+        System.out.println("\n\nYou selected the Lease Contract option!\n");
+
+        System.out.println("Please enter your first and last name:");
+        customerName = scanner.nextLine();
+
+        System.out.println("Please enter your email address:");
+        customerEmail = scanner.nextLine();
+
+        System.out.println("Please enter the vin# of the vehicle you would like to purchase:");
+        vinInput = scanner.nextInt();
+
+        int vehicleVin;
+        for (Vehicle vehicle : this.dealership.getAllVehicles()) {
+            vehicleVin = vehicle.getVin(); // vin# of each vehicle in the dealership
+            if (vehicleVin == vinInput) {
+                vehicleSold = vehicle;
+                System.out.printf("You selected: %d | %d | %s | %s | %s | %s | %d | %.2f\n\n",
+                        vehicleSold.getVin(),
+                        vehicleSold.getYear(),
+                        vehicleSold.getMake(),
+                        vehicleSold.getModel(),
+                        vehicleSold.getVehicleType(),
+                        vehicleSold.getColor(),
+                        vehicleSold.getOdometer(),
+                        vehicleSold.getPrice()
+                );
+                break;
+            }
+        }
+
+        LeaseContract leaseContract = new LeaseContract(formattedDate, customerName, customerEmail, vehicleSold);
+        ContractFileManager.saveContract(leaseContract);
     }
 
 }
