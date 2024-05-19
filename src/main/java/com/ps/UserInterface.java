@@ -341,7 +341,6 @@ public class UserInterface {
         System.out.println("Vehicle not found.\n");
     }
 
-    // processSalesContract()
     public void processSalesContract() {
         LocalDate date = LocalDate.now();
         String customerName;
@@ -403,10 +402,11 @@ public class UserInterface {
 
         SalesContract salesContract = new SalesContract(formattedDate, customerName, customerEmail, vehicleSold, financeOption);
         ContractFileManager.saveContract(salesContract);
+
+        this.dealership.removeVehicle(vehicleSold);
+        DealershipFileManager.saveDealership(this.dealership);
     }
 
-
-    // processLeaseContract()
     public void processLeaseContract() {
         LocalDate date = LocalDate.now();
         String customerName;
@@ -453,6 +453,9 @@ public class UserInterface {
 
         LeaseContract leaseContract = new LeaseContract(formattedDate, customerName, customerEmail, vehicleSold);
         ContractFileManager.saveContract(leaseContract);
+
+        this.dealership.removeVehicle(vehicleSold);
+        DealershipFileManager.saveDealership(this.dealership);
     }
 
 }

@@ -31,6 +31,7 @@ public class ContractFileManager {
                         financeOption,
                         contract.getMonthlyPayment()
                 ));
+
             } else if (contract instanceof LeaseContract) {
                 bufWriter.write(String.format("LEASE|%s|%s|%s|" + "%d|%d|%s|%s|%s|%s|%d|%.2f|" + "%.2f|%.2f|%.2f|%.2f\n",
                         contract.getDate(),
@@ -52,6 +53,7 @@ public class ContractFileManager {
             }
 
             bufWriter.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
