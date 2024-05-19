@@ -1,15 +1,8 @@
 package com.ps;
 
 public class LeaseContract extends Contract {
-//    Expected Ending Value (50% of the original cost of vehicle, after 3 years) <--- the estimated amount the vehicle is worth at the end of the lease.
-    private double expectedEndValue;
-//    Lease Fee (7% of the original cost of vehicle) <--- Initial cost
+    private double expectedEndValue; // The estimated amount the vehicle is worth at the end of the lease.
     private double leaseFee;
-//    Monthly Payment based on:
-    //    All leases are financed at 4.0% for 36 months
-
-    // Constructor
-        // DON'T include total price and monthly payment
 
     public LeaseContract(
             String date,
@@ -23,21 +16,18 @@ public class LeaseContract extends Contract {
     }
 
 
-    // Override getTotalPrice()
-        // Calc values
     @Override
     public double getTotalPrice() {
         this.totalPrice = this.getExpectedEndValue() + this.leaseFee;
         return this.totalPrice;
     }
 
-    // Override getMonthlyPayment()
-        // Calc values
     @Override
-    public double getMonthlyPayment() {
+    public double getMonthlyPayment() { // This might not be correct, but no idea
         this.monthlyPayment = this.getTotalPrice() * 0.04;
         return this.monthlyPayment;
     }
+
 
     // Getters and Setters
     public double getExpectedEndValue() {

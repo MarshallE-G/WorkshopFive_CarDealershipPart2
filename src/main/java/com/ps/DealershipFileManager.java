@@ -52,11 +52,11 @@ public class DealershipFileManager {
             bufWriter.write(String.format("%s|%s|%s\n",
                     dealership.getName(),
                     dealership.getAddress(),
-                    dealership.getPhone()
+                    dealership.getPhoneNum()
             ));
 
             for (Vehicle vehicle : dealership.getAllVehicles()) {
-                bufWriter.write(String.format("%d|%d|%s|%s|%s|%s|%d|%f\n",
+                bufWriter.write(String.format("%d|%d|%s|%s|%s|%s|%d|%.2f\n",
                         vehicle.getVin(),
                         vehicle.getYear(),
                         vehicle.getMake(),
